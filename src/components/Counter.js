@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 
-function Counter() {
-  const [score, setScore] = useState(0);
-
+function Counter(props) {
+  const { id, score, changeScore } = props;
   return (
     <div className="counter">
       <button
         className="counter-action decrement"
-        onClick={() => setScore((score) => score - 1)}
+        onClick={() => changeScore(id, -1)}
       >
         -
       </button>
       <span className="counter-score">{score}</span>
       <button
         className="counter-action increment"
-        onClick={() => setScore((score) => score + 1)}
+        onClick={() => changeScore(id, 1)}
       >
         +
       </button>

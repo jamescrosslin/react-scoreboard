@@ -11,7 +11,7 @@ function Player(props) {
         </button>
         {name}
       </span>
-      <Counter />
+      <Counter {...props} />
     </div>
   );
 }
