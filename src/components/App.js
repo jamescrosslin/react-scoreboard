@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import Player from "./Player";
+import AddPlayerForm from "./AddPlayerForm";
 
 function App() {
   const playerArr = [
@@ -23,12 +24,15 @@ function App() {
   const handleRemovePlayer = (id) =>
     setPlayers((players) => players.filter((playerObj) => playerObj.id !== id));
 
+  const handleAddPlayer = (newPlayer) =>
+    setPlayers((players) => [...players, newPlayer]);
+
   return (
     <div className="scoreboard">
       <Header
         title="Scoreboard"
         totalPlayers={players.length}
-        totalScore={players.reduce((acc, player) => acc + player.score, 0)}
+        totalScore={[...players].reduce((acc, player) => acc + player.score, 0)}
       />
 
       {/* Players List */}
@@ -40,6 +44,7 @@ function App() {
           changeScore={handleScoreChange}
         />
       ))}
+      <AddPlayerForm />
     </div>
   );
 }
