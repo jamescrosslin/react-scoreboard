@@ -1,105 +1,81 @@
-import React from 'react';
+import React, { useState } from "react";
 
-const Header = (props) => {
+function Header(props) {
+  const { title, totalPlayers } = props;
   return (
     <header>
-      <h1>{ props.title }</h1>
-      <span className="stats">Players: {props.totalPlayers}</span> 
+      <h1>{title}</h1>
+      <span className="stats">Players: {totalPlayers}</span>
     </header>
   );
 }
 
-class Counter extends React.Component {
-  state = { 
-    score: 0 
-  };
-  
-  incrementScore = () => {
-    this.setState( prevState => ({
-      score: prevState.score + 1
-    }));
-  }
-
-  decrementScore = () => {
-    this.setState( prevState => ({
-      score: prevState.score - 1
-    }));
-  }
-
-  render() {
-    return (
-      <div className="counter">
-        <button className="counter-action decrement" onClick={this.decrementScore}> - </button>
-        <span className="counter-score">{ this.state.score }</span>
-        <button className="counter-action increment" onClick={this.incrementScore}> + </button>
-      </div>
-    );
-  }
-}
-  
-const Player = (props) => {
+function Player(props) {
+  const { name, removePlayer, id } = props;
   return (
     <div className="player">
       <span className="player-name">
-        <button className="remove-player" onClick={() => props.removePlayer(props.id)}>✖</button>
-        { props.name }
+        <button className="remove-player" onClick={() => removePlayer(id)}>
+          ✖
+        </button>
+        {name}
       </span>
-
       <Counter />
     </div>
   );
 }
 
-class App extends React.Component {
-  state = {
-    players: [
-      {
-        name: "Guil",
-        id: 1
-      },
-      {
-        name: "Treasure",
-        id: 2
-      },
-      {
-        name: "Ashley",
-        id: 3
-      },
-      {
-        name: "James",
-        id: 4
-      }
-    ]
-  };
+function Counter() {
+  const [score, setScore] = useState(0);
 
-  handleRemovePlayer = (id) => {
-    this.setState( prevState => {
-      return {
-        players: prevState.players.filter(p => p.id !== id)
-      };
-    });
-  }
+  return (
+    <div className="counter">
+      <button
+        className="counter-action decrement"
+        onClick={() => setScore((score) => score - 1)}
+      >
+        -
+      </button>
+      <span className="counter-score">{score}</span>
+      <button
+        className="counter-action increment"
+        onClick={() => setScore((score) => score + 1)}
+      >
+        +
+      </button>
+    </div>
+  );
+}
 
-  render() {
-    return (
-      <div className="scoreboard">
-        <Header 
-          title="Scoreboard" 
-          totalPlayers={this.state.players.length} 
+function App() {
+  const playerArr = [
+    { name: "Guil", id: 1 },
+    { name: "Treasure", id: 2 },
+    { name: "Ashley", id: 3 },
+    { name: "James", id: 4 },
+  ];
+
+  const [players, setPlayers] = useState(playerArr);
+
+  return (
+    <div className="scoreboard">
+      <Header title="Scoreboard" totalPlayers={players.length} />
+
+      {/* Players List */}
+      {players.map(({ name, id }) => (
+        <Player
+          name={name}
+          id={id}
+          key={id.toString()}
+          removePlayer={() =>
+            setPlayers((players) =>
+              players.filter((player) => player.id !== id)
+            )
+          }
         />
-  
-        {/* Players list */}
-        {this.state.players.map( player =>
-          <Player 
-            name={player.name}
-            id={player.id}
-            key={player.id.toString()} 
-            removePlayer={this.handleRemovePlayer}           
-          />
-        )}
-      </div>
-    );
-  }
+      ))}
+    </div>
+  );
 }
 
 export default App;
