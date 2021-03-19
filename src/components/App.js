@@ -1,51 +1,6 @@
 import React, { useState } from "react";
-
-function Header(props) {
-  const { title, totalPlayers } = props;
-  return (
-    <header>
-      <h1>{title}</h1>
-      <span className="stats">Players: {totalPlayers}</span>
-    </header>
-  );
-}
-
-function Player(props) {
-  const { name, removePlayer, id } = props;
-  return (
-    <div className="player">
-      <span className="player-name">
-        <button className="remove-player" onClick={() => removePlayer(id)}>
-          ✖
-        </button>
-        {name}
-      </span>
-      <Counter />
-    </div>
-  );
-}
-
-function Counter() {
-  const [score, setScore] = useState(0);
-
-  return (
-    <div className="counter">
-      <button
-        className="counter-action decrement"
-        onClick={() => setScore((score) => score - 1)}
-      >
-        -
-      </button>
-      <span className="counter-score">{score}</span>
-      <button
-        className="counter-action increment"
-        onClick={() => setScore((score) => score + 1)}
-      >
-        +
-      </button>
-    </div>
-  );
-}
+import Header from "./Header";
+import Player from "./Player";
 
 function App() {
   const playerArr = [
