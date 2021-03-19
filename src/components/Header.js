@@ -5,8 +5,8 @@ function Header(props) {
   const { title } = props;
   return (
     <header>
-      <h1>{title}</h1>
       <Stats className="stats" {...props} />
+      <h1>{title}</h1>
     </header>
   );
 }
