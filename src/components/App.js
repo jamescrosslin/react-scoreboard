@@ -4,14 +4,8 @@ import Player from "./Player";
 import AddPlayerForm from "./AddPlayerForm";
 
 function App() {
-  const playerArr = [
-    { name: "Guil", id: 1, score: 0 },
-    { name: "Treasure", id: 2, score: 0 },
-    { name: "Ashley", id: 3, score: 0 },
-    { name: "James", id: 4, score: 0 },
-  ];
-
-  const [players, setPlayers] = useState(playerArr);
+  const [players, setPlayers] = useState([]);
+  const [playerId, setPlayerId] = useState(0);
 
   const handleScoreChange = (id, addend) => {
     setPlayers((players) => {
@@ -24,8 +18,20 @@ function App() {
   const handleRemovePlayer = (id) =>
     setPlayers((players) => players.filter((playerObj) => playerObj.id !== id));
 
-  const handleAddPlayer = (newPlayer) =>
-    setPlayers((players) => [...players, newPlayer]);
+  const handleAddPlayer = (name) =>
+    setPlayers((players) => {
+      const playerObj = {
+        name,
+        id: createId(),
+        score: 0,
+      };
+      return [...players, playerObj];
+    });
+
+  const createId = () => {
+    setPlayerId((id) => id + 1);
+    return playerId;
+  };
 
   return (
     <div className="scoreboard">
@@ -44,7 +50,7 @@ function App() {
           changeScore={handleScoreChange}
         />
       ))}
-      <AddPlayerForm />
+      <AddPlayerForm addPlayer={handleAddPlayer} />
     </div>
   );
 }
