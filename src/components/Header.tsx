@@ -1,8 +1,9 @@
 import React from "react";
 import Stats from "./Stats";
 import Stopwatch from "./Stopwatch";
+import HeaderProps from "../interfaces/HeaderProps";
 
-function Header(props) {
+function Header(props: HeaderProps) {
   const { title } = props;
   return (
     <header>

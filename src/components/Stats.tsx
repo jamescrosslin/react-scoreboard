@@ -1,6 +1,8 @@
 import React from "react";
+import HeaderProps from "../interfaces/HeaderProps";
 
-function Stats({ totalPlayers, totalScore }) {
+function Stats(props: HeaderProps) {
+  const { totalPlayers, totalScore } = props;
   return (
     <table className="stats">
       <tbody>

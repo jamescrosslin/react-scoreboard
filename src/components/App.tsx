@@ -2,23 +2,27 @@ import React, { useState } from "react";
 import Header from "./Header";
 import Player from "./Player";
 import AddPlayerForm from "./AddPlayerForm";
+import PlayerData from "../interfaces/PlayerData";
 
 function App() {
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState<PlayerData[]>([]);
   const [playerId, setPlayerId] = useState(0);
 
-  const handleScoreChange = (id, addend) => {
+  const handleScoreChange = (id: number, addend: number) => {
     setPlayers((players) => {
-      const clone = [...players];
-      clone.find((player) => player.id === id).score += addend;
+      const clone: PlayerData[] = [...players];
+      const player = clone.find((player) => player.id === id) || { score: 0 };
+      player.score += addend;
       return clone;
     });
   };
 
-  const handleRemovePlayer = (id) =>
-    setPlayers((players) => players.filter((playerObj) => playerObj.id !== id));
+  const handleRemovePlayer = (id: number) =>
+    setPlayers((players) =>
+      players.filter((playerObj: PlayerData) => playerObj.id !== id)
+    );
 
-  const handleAddPlayer = (name) =>
+  const handleAddPlayer = (name: string) =>
     setPlayers((players) => {
       const playerObj = {
         name,
@@ -38,7 +42,10 @@ function App() {
       <Header
         title="Scoreboard"
         totalPlayers={players.length}
-        totalScore={[...players].reduce((acc, player) => acc + player.score, 0)}
+        totalScore={[...players].reduce(
+          (acc, player: PlayerData) => acc + player.score,
+          0
+        )}
       />
 
       {/* Players List */}

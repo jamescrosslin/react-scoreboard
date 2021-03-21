@@ -1,7 +1,8 @@
 import React from "react";
 import Counter from "./Counter";
+import PlayerProps from "../interfaces/PlayerProps";
 
-const Player = (props) => {
+const Player = (props: PlayerProps) => {
   const { name, removePlayer, id } = props;
   return (
     <div className="player">

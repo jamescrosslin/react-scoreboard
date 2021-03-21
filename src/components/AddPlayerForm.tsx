@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
-function AddPlayerForm({ addPlayer }) {
-  const handleSubmit = (e) => {
+const AddPlayerForm = (props: { addPlayer: Function }) => {
+  const { addPlayer } = props;
+  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addPlayer(playerInput.current.value);
+    const input = playerInput.current || { value: "" };
+    addPlayer(input.value);
     e.currentTarget.reset();
   };
 
@@ -20,6 +22,6 @@ function AddPlayerForm({ addPlayer }) {
       <input type="submit" value="Add Player" />
     </form>
   );
-}
+};
 
 export default AddPlayerForm;

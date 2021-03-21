@@ -1,6 +1,8 @@
 import React from "react";
+import PlayerProps from "../interfaces/PlayerProps";
 
-const Counter = ({ id, score, changeScore }) => {
+const Counter = (props: PlayerProps) => {
+  const { id, score, changeScore } = props;
   return (
     <div className="counter">
       <button
