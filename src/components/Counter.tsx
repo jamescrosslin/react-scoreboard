@@ -1,6 +1,6 @@
 import React from "react";
 
-const Counter = React.memo(({ id, score, changeScore }) => {
+const Counter = ({ id, score, changeScore }) => {
   return (
     <div className="counter">
       <button
@@ -18,6 +18,6 @@ const Counter = React.memo(({ id, score, changeScore }) => {
       </button>
     </div>
   );
-});
+};
 
 export default Counter;

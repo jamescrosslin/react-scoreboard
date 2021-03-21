@@ -1,22 +1,19 @@
 import React, { useState } from "react";
 
 function AddPlayerForm({ addPlayer }) {
-  const [nameField, setNameField] = useState("");
-
-  const handleNameFieldChange = (e) => setNameField(e.target.value);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    addPlayer(nameField);
-    setNameField("");
+    addPlayer(playerInput.current.value);
+    e.currentTarget.reset();
   };
+
+  const playerInput = React.createRef<HTMLInputElement>();
 
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        value={nameField}
-        onChange={handleNameFieldChange}
+        ref={playerInput}
         placeholder="Enter a player's name"
       />
 
