@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-function AddPlayerForm(props) {
+function AddPlayerForm({ addPlayer }) {
   const [nameField, setNameField] = useState("");
-  const { addPlayer } = props;
+
   const handleNameFieldChange = (e) => setNameField(e.target.value);
 
   const handleSubmit = (e) => {

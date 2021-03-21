@@ -1,7 +1,6 @@
 import React from "react";
 
-function Stats(props) {
-  const { totalPlayers, totalScore } = props;
+function Stats({ totalPlayers, totalScore }) {
   return (
     <table className="stats">
       <tbody>

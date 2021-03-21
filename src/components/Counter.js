@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-function Counter(props) {
-  const { id, score, changeScore } = props;
+const Counter = React.memo(({ id, score, changeScore }) => {
   return (
     <div className="counter">
       <button
@@ -19,6 +18,6 @@ function Counter(props) {
       </button>
     </div>
   );
-}
+});
 
 export default Counter;
