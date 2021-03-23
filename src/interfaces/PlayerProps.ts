@@ -4,6 +4,7 @@ interface PlayerProps {
   score: number;
   removePlayer: Function;
   changeScore: Function;
+  leader: boolean;
 }
 
 export default PlayerProps;

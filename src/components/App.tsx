@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Header from "./Header";
 import Player from "./Player";
 import AddPlayerForm from "./AddPlayerForm";
@@ -7,14 +7,20 @@ import PlayerData from "../interfaces/PlayerData";
 function App() {
   const [players, setPlayers] = useState<PlayerData[]>([]);
   const [playerId, setPlayerId] = useState(0);
+  const [highScore, setHighScore] = useState(0);
 
   const handleScoreChange = (id: number, addend: number) => {
     setPlayers((players) => {
       const clone: PlayerData[] = [...players];
       const player = clone.find((player) => player.id === id) || { score: 0 };
       player.score += addend;
+      setHighScore(() => findHighScore(clone));
       return clone;
     });
+  };
+
+  const findHighScore = (players: PlayerData[]) => {
+    return Math.max(...players.map((player) => player.score));
   };
 
   const handleRemovePlayer = (id: number) =>
@@ -36,6 +42,7 @@ function App() {
     setPlayerId((id) => id + 1);
     return playerId;
   };
+  console.log(highScore);
 
   return (
     <div className="scoreboard">
@@ -52,6 +59,7 @@ function App() {
       {players.map((player) => (
         <Player
           {...player}
+          leader={player.score === highScore && highScore > 0}
           key={player.id.toString()}
           removePlayer={handleRemovePlayer}
           changeScore={handleScoreChange}
