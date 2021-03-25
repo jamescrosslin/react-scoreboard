@@ -1,32 +1,25 @@
 import { useState } from "react";
+import { Provider } from "./Context";
 import Header from "./Header";
-import Player from "./Player";
+import PlayerList from "./PlayerList";
 import AddPlayerForm from "./AddPlayerForm";
 import PlayerData from "../interfaces/PlayerData";
 
 function App() {
   const [players, setPlayers] = useState<PlayerData[]>([]);
   const [playerId, setPlayerId] = useState(0);
-  const [highScore, setHighScore] = useState(0);
 
   const handleScoreChange = (id: number, addend: number) => {
     setPlayers((players) => {
       const clone: PlayerData[] = [...players];
       const player = clone.find((player) => player.id === id) || { score: 0 };
       player.score += addend;
-      setHighScore(() => findHighScore(clone));
       return clone;
     });
   };
 
-  const findHighScore = (players: PlayerData[]) => {
-    return Math.max(...players.map((player) => player.score));
-  };
-
   const handleRemovePlayer = (id: number) =>
-    setPlayers((players) =>
-      players.filter((playerObj: PlayerData) => playerObj.id !== id)
-    );
+    setPlayers((players) => players.filter((player) => player.id !== id));
 
   const handleAddPlayer = (name: string) =>
     setPlayers((players) => {
@@ -42,31 +35,16 @@ function App() {
     setPlayerId((id) => id + 1);
     return playerId;
   };
-  console.log(highScore);
-
   return (
-    <div className="scoreboard">
-      <Header
-        title="Scoreboard"
-        totalPlayers={players.length}
-        totalScore={[...players].reduce(
-          (acc, player: PlayerData) => acc + player.score,
-          0
-        )}
-      />
+    <Provider value={{ players, actions: { changeScore: handleScoreChange } }}>
+      <div className="scoreboard">
+        <Header />
 
-      {/* Players List */}
-      {players.map((player) => (
-        <Player
-          {...player}
-          leader={player.score === highScore && highScore > 0}
-          key={player.id.toString()}
-          removePlayer={handleRemovePlayer}
-          changeScore={handleScoreChange}
-        />
-      ))}
-      <AddPlayerForm addPlayer={handleAddPlayer} />
-    </div>
+        {/* Players List */}
+        <PlayerList handleRemovePlayer={handleRemovePlayer} />
+        <AddPlayerForm addPlayer={handleAddPlayer} />
+      </div>
+    </Provider>
   );
 }
 

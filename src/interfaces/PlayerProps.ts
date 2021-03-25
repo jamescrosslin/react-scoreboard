@@ -3,7 +3,6 @@ interface PlayerProps {
   id: number;
   score: number;
   removePlayer: Function;
-  changeScore: Function;
   leader: boolean;
 }
 

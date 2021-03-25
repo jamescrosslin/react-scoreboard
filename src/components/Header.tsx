@@ -1,17 +1,16 @@
 import React from "react";
 import Stats from "./Stats";
 import Stopwatch from "./Stopwatch";
-import HeaderProps from "../interfaces/HeaderProps";
 
-function Header(props: HeaderProps) {
-  const { title } = props;
+const Header = React.memo(() => {
+  console.log("rendered");
   return (
     <header>
-      <Stats className="stats" {...props} />
-      <h1>{title}</h1>
+      <Stats />
+      <h1>Scoreboard</h1>
       <Stopwatch />
     </header>
   );
-}
+});
 
 export default Header;
