@@ -23,26 +23,45 @@ export const PlayersProvider = ({ children }: PropsWithChildren<{}>) => {
 export const usePlayers = () => {
   const { players, setPlayers } = React.useContext(PlayersContext);
 
+  const [playerId, setPlayerId] = React.useState(0);
+
   const handleScoreChange = React.useCallback(
     (id: number, addend: number) => {
-      /* handle score change code */
+      setPlayers((players) => {
+        const clone: PlayerData[] = [...players];
+        const player = clone.find((player) => player.id === id) || { score: 0 };
+        player.score += addend;
+        return clone;
+      });
     },
     [setPlayers]
   );
 
   const handleRemovePlayer = React.useCallback(
     (id: number) => {
-      /* handle remove player code */
+      setPlayers((players) => players.filter((player) => player.id !== id));
     },
     [setPlayers]
   );
 
   const handleAddPlayer = React.useCallback(
-    (id: number) => {
-      /* handle add player code */
+    (name: string) => {
+      setPlayers((players) => {
+        const playerObj = {
+          name,
+          id: createId(),
+          score: 0,
+        };
+        return [...players, playerObj];
+      });
     },
     [setPlayers]
   );
+
+  const createId = () => {
+    setPlayerId((id) => id + 1);
+    return playerId;
+  };
 
   return { players, handleScoreChange, handleRemovePlayer, handleAddPlayer };
 };

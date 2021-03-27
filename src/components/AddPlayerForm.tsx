@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
+import { usePlayers } from "./Context";
 
-const AddPlayerForm = (props: { addPlayer: Function }) => {
-  const { addPlayer } = props;
+const AddPlayerForm = () => {
+  const { handleAddPlayer } = usePlayers();
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     const input = playerInput.current || { value: "" };
-    addPlayer(input.value);
+    handleAddPlayer(input.value);
     e.currentTarget.reset();
   };
 

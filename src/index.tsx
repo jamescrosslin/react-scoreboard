@@ -1,10 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import App from './components/App';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import { PlayersProvider } from "./components/Context";
+import App from "./components/App";
+import "./index.css";
 
 ReactDOM.render(
-  <App />, 
-  document.getElementById('root')
+  <PlayersProvider>
+    <App />
+  </PlayersProvider>,
+  document.getElementById("root")
 );

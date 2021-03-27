@@ -3,7 +3,6 @@ import Stats from "./Stats";
 import Stopwatch from "./Stopwatch";
 
 const Header = React.memo(() => {
-  console.log("rendered");
   return (
     <header>
       <Stats />
