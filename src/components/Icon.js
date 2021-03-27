@@ -1,11 +1,6 @@
 import React from "react";
 
-interface IconProps {
-  leader: boolean;
-  className?: string;
-}
-
-function Icon(props: IconProps) {
+function Icon(props) {
   const { leader } = props;
   return (
     <svg className={leader ? "is-high-score" : ""} viewBox="0 0 44 35">

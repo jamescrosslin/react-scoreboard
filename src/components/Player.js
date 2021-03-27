@@ -1,9 +1,8 @@
 import React from "react";
 import Counter from "./Counter";
-import PlayerProps from "../interfaces/PlayerProps";
 import Icon from "./Icon";
 
-const Player = (props: PlayerProps) => {
+const Player = (props) => {
   const { name, removePlayer, id, leader } = props;
   return (
     <div className="player">

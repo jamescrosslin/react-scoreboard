@@ -3,14 +3,20 @@ import { usePlayers } from "./Context";
 
 const AddPlayerForm = () => {
   const { handleAddPlayer } = usePlayers();
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const [playerId, setPlayerId] = React.useState(0);
+  const handleSubmit = (e) => {
     e.preventDefault();
     const input = playerInput.current || { value: "" };
-    handleAddPlayer(input.value);
+    handleAddPlayer(input.value, createId());
     e.currentTarget.reset();
   };
 
-  const playerInput = React.createRef<HTMLInputElement>();
+  const createId = () => {
+    setPlayerId((id) => id + 1);
+    return playerId;
+  };
+
+  const playerInput = React.createRef();
 
   return (
     <form onSubmit={handleSubmit}>

@@ -1,8 +1,7 @@
 import React from "react";
-import PlayerProps from "../interfaces/PlayerProps";
 import { usePlayers } from "./Context";
 
-const Counter = (props: PlayerProps) => {
+const Counter = (props) => {
   const { id, score } = props;
   const { handleScoreChange } = usePlayers();
   return (

@@ -1,17 +1,12 @@
 import React, { PropsWithChildren } from "react";
 import PlayerData from "../../interfaces/PlayerData";
 
-type ContextType = {
-  players: PlayerData[];
-  setPlayers: React.Dispatch<React.SetStateAction<PlayerData[]>>;
-};
-
-const PlayersContext = React.createContext<ContextType>({
+const PlayersContext = React.createContext({
   players: [],
   setPlayers: () => {},
 });
 
-export const PlayersProvider = ({ children }: PropsWithChildren<{}>) => {
+export const PlayersProvider = ({ children }) => {
   const [players, setPlayers] = React.useState([]);
   return (
     <PlayersContext.Provider value={{ players, setPlayers }}>
@@ -23,12 +18,10 @@ export const PlayersProvider = ({ children }: PropsWithChildren<{}>) => {
 export const usePlayers = () => {
   const { players, setPlayers } = React.useContext(PlayersContext);
 
-  const [playerId, setPlayerId] = React.useState(0);
-
   const handleScoreChange = React.useCallback(
-    (id: number, addend: number) => {
+    (id, addend) => {
       setPlayers((players) => {
-        const clone: PlayerData[] = [...players];
+        const clone = [...players];
         const player = clone.find((player) => player.id === id) || { score: 0 };
         player.score += addend;
         return clone;
@@ -38,18 +31,18 @@ export const usePlayers = () => {
   );
 
   const handleRemovePlayer = React.useCallback(
-    (id: number) => {
+    (id) => {
       setPlayers((players) => players.filter((player) => player.id !== id));
     },
     [setPlayers]
   );
 
   const handleAddPlayer = React.useCallback(
-    (name: string) => {
+    (name, id) => {
       setPlayers((players) => {
         const playerObj = {
           name,
-          id: createId(),
+          id,
           score: 0,
         };
         return [...players, playerObj];
@@ -57,11 +50,6 @@ export const usePlayers = () => {
     },
     [setPlayers]
   );
-
-  const createId = () => {
-    setPlayerId((id) => id + 1);
-    return playerId;
-  };
 
   return { players, handleScoreChange, handleRemovePlayer, handleAddPlayer };
 };
