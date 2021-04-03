@@ -1,7 +1,7 @@
 {
   "name": "scoreboard",
   "version": "0.1.0",
-  "homepage": "https://jamescrosslin.github.com/scoreboard",
+  "homepage": "https://jamescrosslin.github.io/scoreboard",
   "private": true,
   "dependencies": {
     "@types/jest": "^26.0.21",
