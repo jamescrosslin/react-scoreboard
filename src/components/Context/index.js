@@ -1,4 +1,5 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
+import PlayerData from "../../interfaces/PlayerData";
 
 const PlayersContext = React.createContext({
   players: [],
